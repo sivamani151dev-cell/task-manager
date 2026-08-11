@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.database import engine, Base
 from app.routers import auth, tasks
+from fastapi.responses import RedirectResponse
 import logging
 
 logging.basicConfig(
@@ -23,8 +24,4 @@ app.include_router(tasks.router)
 
 @app.get("/")
 def root():
-    logger.info("Root endpoint hit")
-    return {
-        "message": "Welcome to Task Manager API! ✅",
-        "docs": "http://localhost:8000/docs"
-    }
+    return RedirectResponse(url="/docs")
